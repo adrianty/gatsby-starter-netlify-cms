@@ -1,16 +1,7 @@
-name: telegram message
-on: [push]
-jobs:
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: send custom message with args
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        args: The ${{ github.event_name }} event triggered first step.
-
-    
+name: notification
+  if: cancelled() == false
+  uses: xinthink/action-telegram@v1.1
+  with:
+    botToken: ${{ secrets.BotToken }}
+    chatId: ${{ secrets.ChatID }}
+    jobStatus: ${{ job.status }}
